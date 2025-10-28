@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Data Specification Vocabulary - Default Application Profile (DSV-DAP)</title>
+    <meta name="color-scheme" content="light dark">
+    <script type="application/ld+json">
+      {
+      "@id": "",
+      "@type": [
+        "adms:AssetDistribution",
+        "prof:ResourceDescriptor"
+      ],
+      "hasArtifact": ".",
+      "hasRole": "role:Guidance",
+      "format": "filetype:HTML",
+      "inSpecificationOf": [],
+      "@context": {
+        "@version": 1.1,
+        "prof": "http://www.w3.org/ns/dx/prof/",
+        "role": "prof:role/",
+        "dsv": "https://w3id.org/dsv#",
+        "owl": "http://www.w3.org/2002/07/owl#",
+        "adms": "http://www.w3.org/ns/adms#",
+        "filetype": "http://publications.europa.eu/resource/authority/file-type/",
+        "title": {
+          "@id": "http://purl.org/dc/terms/title",
+          "@container": "@language"
+        },
+        "description": {
+          "@id": "http://purl.org/dc/terms/description",
+          "@container": "@language"
+        },
+        "conformsTo": {
+          "@id": "http://purl.org/dc/terms/conformsTo",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "format": {
+          "@id": "http://purl.org/dc/terms/format",
+          "@type": "@id"
+        },
+        "hasRole": {
+          "@id": "prof:hasRole",
+          "@type": "@id"
+        },
+        "hasArtifact": {
+          "@id": "prof:hasArtifact",
+          "@type": "@id"
+        },
+        "inSpecificationOf": {
+          "@reverse": "prof:hasResource",
+          "@type": "@id",
+          "@context": {
+            "title": {
+              "@id": "http://purl.org/dc/terms/title",
+              "@container": "@language"
+            },
+            "description": {
+              "@id": "http://purl.org/dc/terms/description",
+              "@container": "@language"
+            },
+            "hasToken": {
+              "@id": "prof:hasToken",
+              "@type": "xsd:token"
+            },
+            "isProfileOf": {
+              "@id": "prof:isProfileOf",
+              "@container": "@set",
+              "@context": {
+                "title": {
+                  "@id": "http://purl.org/dc/terms/title",
+                  "@container": "@language"
+                },
+                "hasResource": {
+                  "@id": "prof:hasResource",
+                  "@type": "@id",
+                  "@container": "@set"
+                }
+              }
+            },
+            "hasResource": {
+              "@id": "prof:hasResource",
+              "@container": "@set",
+              "@context": {
+                "conformsTo": {
+                  "@id": "http://purl.org/dc/terms/conformsTo",
+                  "@type": "@id",
+                  "@container": "@set"
+                },
+                "format": {
+                  "@id": "http://purl.org/dc/terms/format",
+                  "@type": "@id"
+                },
+                "hasRole": {
+                  "@id": "prof:hasRole",
+                  "@type": "@id"
+                },
+                "hasArtifact": {
+                  "@id": "prof:hasArtifact",
+                  "@type": "@id"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    </script>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      // All config options at https://respec.org/docs/
+      var respecConfig = {
+        specStatus: "base",
+        shortName: "dsv-dap",               
+        showPreviousVersion: false,
+        thisVersion: "https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/",
+        latestVersion: "https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/",
+        editors: [{
+          name: "Jakub Klímek",
+          orcid: "0000-0001-7234-3051",
+          company:    "Charles University",
+          companyURL: "https://www.mff.cuni.cz"
+        }],
+        inlineCSS: "true",
+        github: "https://github.com/mff-uk/data-specification-vocabulary/",
+        otherLinks: [{
+            key: "Links",
+            data: [{
+                value: "Dataspecer",
+                href: "https://dataspecer.com"
+            },{
+                value: "Data Specification Vocabulary (DSV)",
+                href: "https://mff-uk.github.io/data-specification-vocabulary/dsv/"
+            },{
+                value: "Sample specifications",
+                href: "https://mff-uk.github.io/specifications/"
+            }]
+        }]
+      };
+    </script>
+    
+    <style>
+      .figure img, .sidefigure img, figure img, .figure object, .sidefigure object, figure object, img, .img {
+        max-width: 100%;
+        margin: auto;
+        height: auto;
+      }
+    
+      table.simple {
+        margin: auto;
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+    
+      table.simple th {
+        padding: 3px 10px;
+        text-align: left;
+      }
+    
+      table.simple td {
+        border-top: 1px solid #ddd;
+        padding: 3px 10px;
+      }
+    </style>  </head>
+  <body>
+    <p class="copyright"></p>
+    <section id="abstract">
+      <p>
+        This document describes the DSV default application profile for machine processable representation of Data Specifications and Application Profiles. DSV and DSV-DAP is currently being implemented in the <a href="https://dataspecer.com">Dataspecer</a> tool for management of data specifications, management of application profiles and semi-automatic generation of technical artifacts such as data schemas and transformations based on semantic vocabularies.
+      </p>
+      
+      <p>
+      The goals of this specification are two-fold:
+      
+      <ol>
+        <li>
+          Provide means to annotate specifications, relationship to other specifications and descriptions of artifacts the specifications consist of to help machine processability and reusability of the specifications
+        </li>
+        <li>
+          Provide means to properly describe Application profiles (APs), contexts, in which RDF classes and properties are reused. DSV allows specification editors to identify, which classes and properties are reused in an application profile and how, and specify any terminological or domain/range changes for the AP context.
+        </li>
+      </ol>
+      </p>
+      
+      <p>
+        Preferred prefix: <code>dsv-dap</code>, stands for <code>https://w3id.org/dsv-dap#</code>.
+      </p>
+      
+      <p>
+        This specification and the specification of <a href="https://w3id.org/dsv/">DSV</a> are both described using DSV-DAP.
+      <p>
+      
+      <p>
+        Part of this application profile are the following controlled vocabularies:
+        <ul>
+          <li>
+            <a href="../cardinality/cardinality.ttl">Cardinalities</a>
+          </li>
+          <li>
+            <a href="../requirement-level/requirement-level.ttl">Requirement levels</a>
+          </li>
+          <li>
+            <a href="../class-role/class-role.ttl">Class Roles</a>
+          </li>
+        </ul>
+      </p>    </section>
+
+    <section>
+      <h2>Overview</h2>
+
+    </section>
+
+
+
+
+
+
+
+<section>
+  <h2>Examples</h2>
+  <p>
+    In this section, we provide examples of DSV and DSV-DAP usage on three levels - data specification, vocabulary and application profile.
+  </p>
+  <section>
+    <h3>Data Specification</h3>
+    <p>
+      This is an example of the embedded DSV metadata of an application profile specification published at <code>https://mff-uk.github.io/specifications/dcat-dap/</code>.
+      We can see that the Profiles Vocabulary [[dx-prof]] is reused.
+      We can see the representation of the Application Profile Specification Document s the root, connecting to the Application Profile itself, which specifies the reused vocabularies including their source files through <code>isProfileOf.[].hasArtifact</code> and to the other Application Profile artifacts through <code>hasResource</code>.
+    </p>
+  <aside class="example" title="DSV Data Specification">
+  <p>
+      <a href="examples/dsv-spec.jsonld">JSON-LD file</a>
+  </p>
+  <pre class="json">
+{
+  "@id": "https://mff-uk.github.io/specifications/dcat-dap",
+  "@type": [
+      "dsv:ApplicationProfileSpecificationDocument",
+      "adms:AssetDistribution",
+      "prof:ResourceDescriptor"
+  ],
+  "hasArtifact": ".",
+  "hasRole": "role:Guidance",
+  "format": "filetype:HTML",
+  "inSpecificationOf": [
+    {
+        "@id": "https://mff-uk.github.io/specifications/dcat-dap/#",
+        "@type": [
+            "dsv:ApplicationProfile",
+            "prof:Profile"
+        ],
+        "title": {
+            "en": "DCAT 3 Default Application Profile",
+            "cs": "Výchozí aplikační profil DCAT 3"
+        },
+        "isProfileOf": [
+            {
+                "hasArtifact": [
+                    "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://datagov-cz.github.io/cache-slovniku/skos.rdf"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://www.w3.org/ns/dcat3.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://datagov-cz.github.io/cache-slovniku/foaf.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://datagov-cz.github.io/cache-slovniku/rdfs.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://www.w3.org/2006/vcard/ns"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://www.w3.org/ns/prov-o"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://www.w3.org/ns/odrl/2/ODRL22.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://www.w3.org/ns/legacy_adms"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://datagov-cz.github.io/cache-slovniku/spdx-ontology.2.3.1.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://datagov-cz.github.io/cache-slovniku/time.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://semiceu.github.io/Core-Location-Vocabulary/releases/2.00/voc/core-location-ap.ttl"
+                ]
+            },
+            {
+                "hasArtifact": [
+                    "https://www.w3.org/ns/legacy_locn.ttl"
+                ]
+            }
+        ],
+        "hasResource": [
+            {
+                "@id": "https://mff-uk.github.io/specifications/dcat-dap#dsv",
+                "@type": [
+                    "adms:AssetDistribution",
+                    "prof:ResourceDescriptor"
+                ],
+                "hasArtifact": "./dsv.ttl",
+                "hasRole": "role:Specification",
+                "format": "filetype:RDF_TURTLE",
+                "conformsTo": [
+                    "dsv:ApplicationProfileSpecificationDocument",
+                    "prof:Profile"
+                ]
+            },
+            {
+                "@id": "https://mff-uk.github.io/specifications/dcat-dap#1jcyy",
+                "@type": [
+                    "adms:AssetDistribution",
+                    "prof:ResourceDescriptor"
+                ],
+                "hasArtifact": "./1jcyy.svg",
+                "hasRole": "role:Guidance",
+                "format": "filetype:SVG",
+                "conformsTo": "https://www.w3.org/TR/SVG/"
+            },
+            {
+                "@id": "https://mff-uk.github.io/specifications/dcat-dap#9z0nki",
+                "@type": [
+                    "adms:AssetDistribution",
+                    "prof:ResourceDescriptor"
+                ],
+                "hasArtifact": "./9z0nki.svg",
+                "hasRole": "role:Guidance",
+                "format": "filetype:SVG",
+                "conformsTo": "https://www.w3.org/TR/SVG/"
+            },
+            {
+                "@id": "https://mff-uk.github.io/specifications/dcat-dap",
+                "@type": [
+                    "dsv:ApplicationProfileSpecificationDocument",
+                    "adms:AssetDistribution",
+                    "prof:ResourceDescriptor"
+                ],
+                "hasArtifact": ".",
+                "hasRole": "role:Guidance",
+                "format": "filetype:HTML"
+            }
+        ]
+    }
+],
+"@context": {
+    "@version": 1.1,
+    "prof": "http://www.w3.org/ns/dx/prof/",
+    "role": "prof:role/",
+    "dsv": "https://w3id.org/dsv#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "adms": "http://www.w3.org/ns/adms#",
+    "filetype": "http://publications.europa.eu/resource/authority/file-type/",
+    "title": {
+        "@id": "http://purl.org/dc/terms/title",
+        "@container": "@language"
+    },
+    "description": {
+        "@id": "http://purl.org/dc/terms/description",
+        "@container": "@language"
+    },
+    "conformsTo": {
+        "@id": "http://purl.org/dc/terms/conformsTo",
+        "@type": "@id",
+        "@container": "@set"
+    },
+    "format": {
+        "@id": "http://purl.org/dc/terms/format",
+        "@type": "@id"
+    },
+    "hasRole": {
+        "@id": "prof:hasRole",
+        "@type": "@id"
+    },
+    "hasArtifact": {
+        "@id": "prof:hasArtifact",
+        "@type": "@id"
+    },
+    "inSpecificationOf": {
+        "@reverse": "prof:hasResource",
+        "@type": "@id",
+        "@context": {
+            "title": {
+                "@id": "http://purl.org/dc/terms/title",
+                "@container": "@language"
+            },
+            "description": {
+                "@id": "http://purl.org/dc/terms/description",
+                "@container": "@language"
+            },
+            "hasToken": {
+                "@id": "prof:hasToken",
+                "@type": "xsd:token"
+            },
+            "isProfileOf": {
+                "@id": "prof:isProfileOf",
+                "@container": "@set",
+                "@context": {
+                    "title": {
+                        "@id": "http://purl.org/dc/terms/title",
+                        "@container": "@language"
+                    },
+                    "hasResource": {
+                        "@id": "prof:hasResource",
+                        "@type": "@id",
+                        "@container": "@set"
+                    }
+                }
+            },
+            "hasResource": {
+                "@id": "prof:hasResource",
+                "@container": "@set",
+                "@context": {
+                    "conformsTo": {
+                        "@id": "http://purl.org/dc/terms/conformsTo",
+                        "@type": "@id",
+                        "@container": "@set"
+                    },
+                    "format": {
+                        "@id": "http://purl.org/dc/terms/format",
+                        "@type": "@id"
+                    },
+                    "hasRole": {
+                        "@id": "prof:hasRole",
+                        "@type": "@id"
+                    },
+                    "hasArtifact": {
+                        "@id": "prof:hasArtifact",
+                        "@type": "@id"
+                    }
+                }
+            }
+        }
+    }
+  }
+}</pre>
+</aside>
+  </section>
+
+  <section>
+    <h3>Vocabulary</h3>
+    <p>
+      In this example, we show how DSV-DAP reuses RDFS [[rdf-schema]] and OWL2 [[owl2-primer]].
+      The example is from the <a href="https://eosc-cz.github.io/CCMM-V/en/">Czech Core Metadata Vocabulary</a>.
+    </p>
+  <aside class="example" title="DSV Vocabulary">
+  <p>
+      <a href="examples/dsv-voc.ttl">RDF Turtle file</a>
+  </p>
+  <pre class="turtle">
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
+@prefix prof: &lt;http://www.w3.org/ns/dx/prof/&gt;.
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;.
+@prefix : &lt;https://techlib.cz/vocabulary/ccmm/&gt;.
+
+&lt;https://techlib.cz/vocabulary/ccmm/&gt; a owl:Ontology, prof:Profile.
+:Distribution-DataService a owl:Class, rdfs:Class;
+    rdfs:label "Distribution - data service"@en;
+    rdfs:comment "Physical embodiment of the dataset as a particular data service. "@en;
+    rdfs:isDefinedBy &lt;https://techlib.cz/vocabulary/ccmm/&gt;;
+    rdfs:subClassOf &lt;http://www.w3.org/ns/dcat#Distribution&gt;.
+:ContactDetails a owl:Class, rdfs:Class;
+    rdfs:label "Contact details"@en;
+    rdfs:comment "Contact details such as telephone, e-mail address etc."@en;
+    rdfs:isDefinedBy &lt;https://techlib.cz/vocabulary/ccmm/&gt;.
+:phone a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "Phone"@en;
+    rdfs:comment "Phone number"@en;
+    rdfs:isDefinedBy &lt;https://techlib.cz/vocabulary/ccmm/&gt;;
+    rdfs:domain :ContactDetails;
+    rdfs:range rdfs:Literal.
+:hasRelatedResource a rdf:Property, owl:ObjectProperty;
+    rdfs:label "has related resource"@en;
+    rdfs:isDefinedBy &lt;https://techlib.cz/vocabulary/ccmm/&gt;;
+    rdfs:domain &lt;http://www.w3.org/ns/dcat#Dataset&gt;;
+    rdfs:range rdfs:Resource.</pre>
+</aside>
+  </section>
+
+  <section>
+    <h3>Application Profile</h3>
+    <p>
+      This example shows a sample form application profile <a href="https://mff-uk.github.io/specifications/dcat-dap/">DCAT Default Application Profile (DCAT-DAP)</a>.
+      It contains the Class Profile of <code>dcat:Catalog</code> and a Property Profile of <code>foaf:homepage</code> used on the catalog.
+    </p>
+  <aside class="example" title="DSV Application Profile">
+  <p>
+      <a href="examples/dsv-ap.ttl">RDF Turtle file</a>
+  </p>
+  <pre class="turtle">
+@prefix dct: &lt;http://purl.org/dc/terms/&gt;.
+@prefix dsv: &lt;https://w3id.org/dsv#&gt;.
+@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt;.
+@prefix cardinality: &lt;https://w3id.org/dsv/cardinality#&gt;.
+@prefix prof: &lt;http://www.w3.org/ns/dx/prof/&gt;.
+
+@prefix : &lt;https://mff-uk.github.io/specifications/dcat-dap/#&gt;.
+
+&lt;https://mff-uk.github.io/specifications/dcat-dap/#&gt; a prof:Profile, dsv:ApplicationProfile.
+:Catalog dct:isPartOf &lt;https://mff-uk.github.io/specifications/dcat-dap/#&gt;;
+    a dsv:TermProfile;
+    skos:definition "A curated collection of metadata about resources."@en, "Una colección curada de metadatos sobre recursos (por ejemplo, conjuntos de datos y servicios de datos en el contexto de un catálogo de datos)."@es, "Una raccolta curata di metadati sulle risorse (ad es. sui dataset e relativi servizi nel contesto di cataloghi di dati)."@it, "Une collection élaborée de métadonnées sur les jeux de données"@fr, "Řízená kolekce metadat o datových sadách a datových službách"@cs, "Μια επιμελημένη συλλογή μεταδεδομένων περί συνόλων δεδομένων"@el, "مجموعة من توصيفات قوائم البيانات"@ar, "データ・カタログは、データセットに関するキュレートされたメタデータの集合です。"@ja, "En udvalgt og arrangeret samling af metadata om ressourcer (fx datasæt og datatjenester i kontekst af et datakatalog). "@da;
+    skos:scopeNote "A Web-based data catalog is typically represented as a single instance of this class.\nDatasets and data services are examples of resources in the context of a data catalog."@en;
+    dsv:specializes :Dataset;
+    dsv:reusesPropertyValue [
+  a dsv:PropertyValueReuse;
+  dsv:reusedProperty skos:prefLabel;
+  dsv:reusedFromResource &lt;http://www.w3.org/ns/dcat#Catalog&gt;
+];
+    dsv:externalDocumentation &lt;https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog&gt;;
+    a dsv:ClassProfile;
+    dsv:class &lt;http://www.w3.org/ns/dcat#Catalog&gt;.
+
+&lt;https://mff-uk.github.io/specifications/dcat-dap/#Catalog.homepage&gt; dsv:domain :Catalog;
+    dct:isPartOf &lt;https://mff-uk.github.io/specifications/dcat-dap/#&gt;;
+    a dsv:TermProfile;
+    skos:definition "A homepage of the catalog (a public Web document usually available in HTML)."@en;
+    skos:scopeNote "foaf:homepage is an inverse functional property (IFP) which means that it MUST be unique and precisely identify the Web-page for the resource. This property indicates the canonical Web-page, which might be helpful in cases where there is more than one Web-page about the resource."@en;
+    dsv:reusesPropertyValue [
+  a dsv:PropertyValueReuse;
+  dsv:reusedProperty skos:prefLabel;
+  dsv:reusedFromResource &lt;http://xmlns.com/foaf/0.1/homepage&gt;
+];
+    dsv:externalDocumentation &lt;https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_homepage&gt;;
+    dsv:cardinality cardinality:0n;
+    dsv:property &lt;http://xmlns.com/foaf/0.1/homepage&gt;;
+    a dsv:ObjectPropertyProfile;
+    dsv:objectPropertyRange :Document.</pre>
+</aside>
+  </section>
+
+  <section>
+    <h3>Application Profile of Application Profile</h3>
+    <p>
+      In this example, we can see an application profile (DCAT-AP) of an application profile (DCAT-DAP, seen above).
+      Again we see the Class Profile of <code>dcat:Catalog</code> the way it is profiled in DCAT-DAP.
+      Also, we see the Property Profile of <code>foaf:homepage</code> the way it is profiles in DCAT-DAP to be used on Catalog.
+    </p>
+  <aside class="example" title="DSV Application Profile of Application Profile">
+  <p>
+      <a href="examples/dsv-ap-of-ap.ttl">RDF Turtle file</a>
+  </p>
+  <pre class="turtle">
+@prefix dct: &lt;http://purl.org/dc/terms/&gt;.
+@prefix dsv: &lt;https://w3id.org/dsv#&gt;.
+@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt;.
+@prefix cardinality: &lt;https://w3id.org/dsv/cardinality#&gt;.
+@prefix requirement: &lt;https://w3id.org/dsv/requirement-level#&gt;.
+@prefix role: &lt;https://w3id.org/dsv/class-role#&gt;.
+@prefix prof: &lt;http://www.w3.org/ns/dx/prof/&gt;.
+@prefix : &lt;https://mff-uk.github.io/specifications/dcat-ap/#&gt;.
+
+
+&lt;https://mff-uk.github.io/specifications/dcat-ap/#&gt; a prof:Profile, dsv:ApplicationProfile.
+:Catalogue dct:isPartOf &lt;https://mff-uk.github.io/specifications/dcat-ap/#&gt;;
+    a dsv:TermProfile;
+    skos:prefLabel "Catalogue"@en, "Catalogo"@it, "Catalogue"@fr, "Catálogo"@es, "Katalog"@cs, "Κατάλογος"@el, "فهرس قوائم البيانات"@ar, "カタログ"@ja, "Katalog"@da;
+    skos:definition "A catalogue or repository that hosts the Datasets or Data Services being described."@en, "Una colección curada de metadatos sobre recursos (por ejemplo, conjuntos de datos y servicios de datos en el contexto de un catálogo de datos)."@es, "Una raccolta curata di metadati sulle risorse (ad es. sui dataset e relativi servizi nel contesto di cataloghi di dati)."@it, "Une collection élaborée de métadonnées sur les jeux de données"@fr, "Řízená kolekce metadat o datových sadách a datových službách"@cs, "Μια επιμελημένη συλλογή μεταδεδομένων περί συνόλων δεδομένων"@el, "مجموعة من توصيفات قوائم البيانات"@ar, "データ・カタログは、データセットに関するキュレートされたメタデータの集合です。"@ja, "En udvalgt og arrangeret samling af metadata om ressourcer (fx datasæt og datatjenester i kontekst af et datakatalog). "@da;
+    dsv:profileOf &lt;https://mff-uk.github.io/specifications/dcat-dap/#Catalog&gt;;
+    dsv:reusesPropertyValue [
+  a dsv:PropertyValueReuse;
+  dsv:reusedProperty skos:scopeNote;
+  dsv:reusedFromResource &lt;https://mff-uk.github.io/specifications/dcat-dap/#Catalog&gt;
+];
+    dsv:externalDocumentation &lt;https://semiceu.github.io/DCAT-AP/releases/3.0.0/#Catalogue&gt;;
+    a dsv:ClassProfile;
+    dsv:classRole role:main.
+
+&lt;https://mff-uk.github.io/specifications/dcat-ap/#Catalogue.homepage&gt; dsv:domain :Catalogue;
+    dct:isPartOf &lt;https://mff-uk.github.io/specifications/dcat-ap/#&gt;;
+    a dsv:TermProfile;
+    skos:definition "A web page that acts as the main page for the Catalogue."@en;
+    skos:scopeNote ""@en;
+    dsv:profileOf &lt;https://mff-uk.github.io/specifications/dcat-dap/#Catalog.homepage&gt;;
+    dsv:reusesPropertyValue [
+  a dsv:PropertyValueReuse;
+  dsv:reusedProperty skos:prefLabel;
+  dsv:reusedFromResource &lt;https://mff-uk.github.io/specifications/dcat-dap/#Catalog.homepage&gt;
+];
+    dsv:externalDocumentation &lt;https://semiceu.github.io/DCAT-AP/releases/3.0.0/#Catalogue.homepage&gt;;
+    dsv:cardinality cardinality:01;
+    dsv:requirementLevel requirement:recommended;
+    a dsv:ObjectPropertyProfile;
+    dsv:objectPropertyRange :Document.</pre>
+</aside>
+  </section>
+
+</section>
+    <section>
+      <h2>Used prefixes</h2>
+      <table id="table-namespaces" class="simple">
+        <thead><tr><th>Prefix</th><th>Namespace IRI</th></tr></thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Attachments</h2>
+    
+        <p>This specification includes the following attachments.</p>
+      <table class="def">
+        <thead>
+          <tr>
+            <th>Attachment</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>  </body>
+</html>
